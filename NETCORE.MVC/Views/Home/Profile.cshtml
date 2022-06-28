@@ -1,0 +1,19 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using System.Dynamic
+@{
+    ViewData["Title"] = "Profile";
+    var converter = new ExpandoObjectConverter();
+    dynamic obj = JsonConvert.DeserializeObject<ExpandoObject>(ViewData["Profile"].ToString(), converter) as dynamic;
+    var dicObj = ((IDictionary<string, object>) obj);
+}
+<h1>@ViewData["Title"]</h1>
+<table class="table">
+    @foreach(var p in dicObj.Keys)
+    {
+        <tr>
+            <td>@p</td>
+            <td>@dicObj[p]</td>
+        </tr>
+    }
+</table>
